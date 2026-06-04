@@ -380,19 +380,6 @@ body.learn-mode .learn-only:not(.hidden) {
   background: rgba(61, 156, 245, 0.12);
 }
 
-.mode-link {
-  display: block;
-  text-align: left;
-  text-decoration: none;
-  color: var(--text);
-  background: rgba(155, 123, 255, 0.1);
-  border-color: rgba(155, 123, 255, 0.4);
-}
-
-.mode-link:hover {
-  border-color: #9b7bff;
-}
-
 select {
   width: 100%;
   padding: 0.5rem;

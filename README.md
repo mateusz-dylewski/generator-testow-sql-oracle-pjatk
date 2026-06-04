@@ -8,7 +8,6 @@ Generator zadań **Oracle SQL** do nauki i ćwiczeń na przedmiocie **RBD** (PJA
 |---|--------|
 | **PJATK** | [https://users.pja.edu.pl/~s36518/rbd-sql-generator/](https://users.pja.edu.pl/~s36518/rbd-sql-generator/) |
 | **Vercel** | [https://oracle-sql-trainer.vercel.app](https://oracle-sql-trainer.vercel.app) |
-| **Nauka kognitywna (bloczki)** | […/rbd-sql-generator/cognitive/](https://users.pja.edu.pl/~s36518/rbd-sql-generator/cognitive/) |
 
 ## Funkcje
 
