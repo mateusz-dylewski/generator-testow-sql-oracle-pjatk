@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>RBD — Nauka kognitywna SQL (bloczki)</title>
+  <script>
+    (function () {
+      var path = location.pathname;
+      if (/\.[a-z0-9]+$/i.test(path.split('/').pop() || '')) {
+        path = path.replace(/\/[^/]+$/, '/');
+      } else if (!path.endsWith('/')) {
+        path += '/';
+      }
+      var base = document.createElement('base');
+      base.href = path;
+      document.head.appendChild(base);
+    })();
+  </script>
+  <link rel="stylesheet" href="cognitive.css" />
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;600&family=Outfit:wght@400;600;700&display=swap" rel="stylesheet" />
+</head>
+<body>
+  <header class="cog-header">
+    <div>
+      <a class="cog-back" href="../">← Generator RBD</a>
+      <h1>Nauka kognitywna — bloczki SQL</h1>
+      <p>Przeciągaj i łącz bloczki ręcznie (styl Cognitive-GUI pipeline)</p>
+    </div>
+  </header>
+
+  <div class="cog-layout">
+    <aside class="cog-palette" id="cog-palette"></aside>
+
+    <div class="cog-canvas-wrap">
+      <div class="cog-canvas" id="cog-canvas">
+        <svg class="cog-edges" id="cog-edges"></svg>
+      </div>
+    </div>
+
+    <aside class="cog-side">
+      <div class="cog-lesson">
+        <h3 id="cog-lesson-title">Lekcja</h3>
+        <p id="cog-lesson-prompt"></p>
+        <p class="cog-hint" id="cog-lesson-hint"></p>
+      </div>
+      <p class="cog-help">
+        <strong>Jak łączyć:</strong> kliknij niebieskie wyjście bloku, potem fioletowe wejście następnego.
+        Przeciągnij bloczki z palety na planszę. Tabele podłącz pod FROM / JOIN.
+      </p>
+      <div class="cog-actions">
+        <button type="button" class="cog-btn primary" id="cog-check">Sprawdź połączenie</button>
+        <button type="button" class="cog-btn ghost" id="cog-starter">Szablon startowy</button>
+        <button type="button" class="cog-btn ghost" id="cog-clear">Wyczyść</button>
+        <button type="button" class="cog-btn ghost" id="cog-next-lesson">Następna lekcja</button>
+      </div>
+      <div class="cog-feedback" id="cog-feedback"></div>
+      <h3 style="font-size:0.75rem;text-transform:uppercase;color:var(--muted);margin:1rem 0 0.4rem;">Podgląd SQL</h3>
+      <pre class="cog-sql-preview" id="cog-sql-preview">-- połącz bloczki</pre>
+    </aside>
+  </div>
+
+  <script src="sql-blocks.js"></script>
+  <script src="sql-compile.js"></script>
+  <script src="cognitive.js"></script>
+</body>
+</html>
