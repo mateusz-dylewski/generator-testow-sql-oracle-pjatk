@@ -521,8 +521,23 @@
     }
   });
 
+  function initCognitiveEntry() {
+    const fab = $('#cognitive-fab');
+    if (!fab) return;
+    const url = new URL('cognitive/', window.location.href).href;
+    fetch(url, { method: 'HEAD', cache: 'no-store' })
+      .then((r) => {
+        if (r.ok) fab.classList.remove('hidden');
+      })
+      .catch(() => {});
+    fab.addEventListener('click', () => {
+      window.location.href = url;
+    });
+  }
+
   loadStats();
   setExamUI(false);
   setLearnUI(false);
+  initCognitiveEntry();
   nextPracticeTask();
 })();

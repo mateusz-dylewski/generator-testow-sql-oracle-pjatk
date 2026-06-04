@@ -380,6 +380,42 @@ body.learn-mode .learn-only:not(.hidden) {
   background: rgba(61, 156, 245, 0.12);
 }
 
+.cognitive-fab {
+  position: fixed;
+  right: 1.25rem;
+  bottom: 1.25rem;
+  z-index: 900;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  padding: 0.55rem 0.85rem;
+  border: 1px solid rgba(155, 123, 255, 0.55);
+  border-radius: 999px;
+  background: linear-gradient(135deg, rgba(155, 123, 255, 0.35), rgba(94, 231, 255, 0.2));
+  color: var(--text);
+  font-family: inherit;
+  font-size: 0.82rem;
+  font-weight: 600;
+  cursor: pointer;
+  box-shadow: 0 8px 28px rgba(0, 0, 0, 0.45);
+  backdrop-filter: blur(8px);
+  transition: transform 0.15s, border-color 0.15s;
+}
+
+.cognitive-fab:hover {
+  transform: scale(1.04);
+  border-color: #9b7bff;
+}
+
+.cognitive-fab.hidden {
+  display: none;
+}
+
+.cognitive-fab-icon {
+  font-size: 1.1rem;
+  color: #9b7bff;
+}
+
 select {
   width: 100%;
   padding: 0.5rem;

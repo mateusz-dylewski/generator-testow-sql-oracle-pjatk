@@ -5,6 +5,7 @@
 node_modules/
 .vercel
 deploy-pjatk.sh
+deploy-cognitive.local.sh
 cognitive/
 *.jpg
 *.jpeg
