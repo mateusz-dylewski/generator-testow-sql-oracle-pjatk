@@ -1,4 +1,4 @@
-# Generator testów SQL Oracle - PJATK
+# RBD Generator testów SQL Oracle - PJATK
 
 Generator zadań **Oracle SQL** do nauki i ćwiczeń na przedmiocie **RBD** (PJATK).
 
@@ -20,8 +20,8 @@ Generator zadań **Oracle SQL** do nauki i ćwiczeń na przedmiocie **RBD** (PJA
 ## Lokalnie
 
 ```bash
-git clone https://github.com/mateusz-dylewski/generator-testow-sql-oracle-pjatk.git
-cd generator-testow-sql-oracle-pjatk
+git clone https://github.com/mateusz-dylewski/rbd-generator-testow-sql-oracle-pjatk.git
+cd rbd-generator-testow-sql-oracle-pjatk
 python3 -m http.server 8080
 ```
 
