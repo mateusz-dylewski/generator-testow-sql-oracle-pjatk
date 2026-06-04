@@ -1,0 +1,223 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Generator testów SQL Oracle - PJATK</title>
+  <script>
+    (function () {
+      var path = location.pathname;
+      if (/\.[a-z0-9]+$/i.test(path.split('/').pop() || '')) {
+        path = path.replace(/\/[^/]+$/, '/');
+      } else if (!path.endsWith('/')) {
+        path += '/';
+      }
+      var base = document.createElement('base');
+      base.href = path;
+      document.head.appendChild(base);
+    })();
+  </script>
+  <link rel="stylesheet" href="styles.css" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;600&family=Outfit:wght@400;600;700&display=swap" rel="stylesheet" />
+</head>
+<body>
+  <div class="app">
+    <header class="header">
+      <div class="brand">
+        <span class="logo" aria-hidden="true">⊕</span>
+        <div>
+          <h1>Generator testów SQL Oracle - PJATK</h1>
+          <p class="tagline">RBD · generator zadań Oracle SQL · diagram ER</p>
+        </div>
+      </div>
+      <div class="stats" id="stats">
+        <span class="stat"><strong id="stat-solved">0</strong> rozwiązane</span>
+        <span class="stat"><strong id="stat-streak">0</strong> seria</span>
+        <span class="stat"><strong id="stat-xp">0</strong> XP</span>
+      </div>
+    </header>
+
+    <aside class="sidebar">
+      <section class="panel">
+        <h2>Tryb</h2>
+        <div class="mode-grid">
+          <button type="button" class="mode-btn active" data-mode="practice">Ćwiczenia</button>
+          <button type="button" class="mode-btn" data-mode="learn">Nauka</button>
+          <button type="button" class="mode-btn" data-mode="exam">Egzamin (10 zadań)</button>
+        </div>
+        <p class="mode-note">Nauka: krok po kroku wpisujesz to, co podpowiada. Egzamin: bez ściągi.</p>
+      </section>
+
+      <section class="panel">
+        <h2>Poziom trudności</h2>
+        <select id="difficulty">
+          <option value="easy">Podstawy (SELECT, JOIN)</option>
+          <option value="medium" selected>Średni (GROUP BY, HAVING)</option>
+          <option value="hard">Trudny (podzapytania, TOP-N)</option>
+          <option value="expert">Ekspert (ROWNUM, NVL, OFFSET)</option>
+        </select>
+      </section>
+
+      <section class="panel er-panel">
+        <h2>Diagram bazy (ER)</h2>
+        <button type="button" class="er-zoom-trigger" id="er-zoom-trigger" aria-label="Powiększ diagram bazy danych">
+          <svg class="er-diagram" id="er-diagram" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 720 520" aria-hidden="true">
+            <defs>
+              <marker id="er-arrow" markerWidth="8" markerHeight="8" refX="7" refY="4" orient="auto">
+                <path d="M0,0 L8,4 L0,8 Z" fill="#8b9cb3"/>
+              </marker>
+            </defs>
+            <rect fill="#0f1419" width="720" height="520" rx="12"/>
+            <g transform="translate(40,40)">
+              <rect fill="#1a2332" stroke="#3d9cf5" stroke-width="2" width="160" height="72" rx="6"/>
+              <text fill="#3d9cf5" font-weight="700" font-size="13" font-family="system-ui,sans-serif" x="12" y="22">MIASTO</text>
+              <text fill="#ff9500" font-size="11" font-family="monospace" x="12" y="42">PK id_miasto</text>
+              <text fill="#e8edf4" font-size="11" font-family="monospace" x="12" y="58">nazwa</text>
+            </g>
+            <g transform="translate(40,200)">
+              <rect fill="#1a2332" stroke="#3d9cf5" stroke-width="2" width="180" height="88" rx="6"/>
+              <text fill="#3d9cf5" font-weight="700" font-size="13" font-family="system-ui,sans-serif" x="12" y="22">NAUCZYCIEL</text>
+              <text fill="#ff9500" font-size="11" font-family="monospace" x="12" y="42">PK id_nauczyciel</text>
+              <text fill="#e8edf4" font-size="11" font-family="monospace" x="12" y="58">imie, nazwisko</text>
+              <text fill="#e8edf4" font-size="11" font-family="monospace" x="12" y="74">pensja</text>
+            </g>
+            <g transform="translate(280,120)">
+              <rect fill="#1a2332" stroke="#3d9cf5" stroke-width="2" width="200" height="104" rx="6"/>
+              <text fill="#3d9cf5" font-weight="700" font-size="13" font-family="system-ui,sans-serif" x="12" y="22">UCZEN</text>
+              <text fill="#ff9500" font-size="11" font-family="monospace" x="12" y="42">PK id_uczen</text>
+              <text fill="#e8edf4" font-size="11" font-family="monospace" x="12" y="58">imie, nazwisko</text>
+              <text fill="#3ecf8e" font-size="10" font-family="monospace" x="12" y="74">FK id_miasto</text>
+              <text fill="#3ecf8e" font-size="10" font-family="monospace" x="12" y="90">FK id_wychowawca</text>
+            </g>
+            <g transform="translate(520,40)">
+              <rect fill="#1a2332" stroke="#3d9cf5" stroke-width="2" width="160" height="72" rx="6"/>
+              <text fill="#3d9cf5" font-weight="700" font-size="13" font-family="system-ui,sans-serif" x="12" y="22">PRZEDMIOT</text>
+              <text fill="#ff9500" font-size="11" font-family="monospace" x="12" y="42">PK id_przedmiot</text>
+              <text fill="#e8edf4" font-size="11" font-family="monospace" x="12" y="58">nazwa</text>
+            </g>
+            <g transform="translate(400,280)">
+              <rect fill="#1a2332" stroke="#3d9cf5" stroke-width="2" width="220" height="120" rx="6"/>
+              <text fill="#3d9cf5" font-weight="700" font-size="13" font-family="system-ui,sans-serif" x="12" y="22">OCENA</text>
+              <text fill="#ff9500" font-size="11" font-family="monospace" x="12" y="42">PK id_ocena</text>
+              <text fill="#e8edf4" font-size="11" font-family="monospace" x="12" y="58">wartosc (1-6)</text>
+              <text fill="#3ecf8e" font-size="10" font-family="monospace" x="12" y="74">FK id_uczen</text>
+              <text fill="#3ecf8e" font-size="10" font-family="monospace" x="12" y="90">FK id_przedmiot</text>
+              <text fill="#3ecf8e" font-size="10" font-family="monospace" x="12" y="106">FK id_nauczyciel</text>
+            </g>
+            <path stroke="#8b9cb3" stroke-width="1.5" fill="none" marker-end="url(#er-arrow)" d="M200 76 L280 150"/>
+            <text fill="#8b9cb3" font-size="10" x="210" y="108">1:N</text>
+            <path stroke="#8b9cb3" stroke-width="1.5" fill="none" marker-end="url(#er-arrow)" d="M130 200 L280 195"/>
+            <text fill="#8b9cb3" font-size="10" x="165" y="188">wychowawca</text>
+            <path stroke="#8b9cb3" stroke-width="1.5" fill="none" marker-end="url(#er-arrow)" d="M380 224 L440 280"/>
+            <path stroke="#8b9cb3" stroke-width="1.5" fill="none" marker-end="url(#er-arrow)" d="M600 112 L520 300"/>
+            <path stroke="#8b9cb3" stroke-width="1.5" fill="none" marker-end="url(#er-arrow)" d="M220 288 L400 320"/>
+            <text fill="#8b9cb3" font-size="10" x="40" y="470">PK</text>
+            <rect fill="#ff9500" x="60" y="458" width="12" height="12" rx="2"/>
+            <text fill="#8b9cb3" font-size="10" x="80" y="470">FK</text>
+            <rect fill="#3ecf8e" x="100" y="458" width="12" height="12" rx="2"/>
+            <text fill="#8b9cb3" font-size="10" x="130" y="470">MIASTO - UCZEN - OCENA - PRZEDMIOT</text>
+          </svg>
+          <span class="er-zoom-hint">Kliknij, aby powiększyć</span>
+        </button>
+        <button type="button" class="link-btn" id="copy-schema">Kopiuj DDL (Oracle)</button>
+      </section>
+
+      <section class="panel practice-only" id="sidebar-rubric">
+        <h2>Ocena (2 pkt / zadanie)</h2>
+        <ul class="rubric">
+          <li>Poprawne tabele i JOIN (Oracle)</li>
+          <li>GROUP BY / agregacje + ROUND</li>
+          <li>FETCH FIRST / ROWNUM / NVL</li>
+        </ul>
+      </section>
+    </aside>
+
+    <main class="main">
+      <div class="exam-bar hidden" id="exam-bar">
+        <span>Zadanie <strong id="exam-current">1</strong> / <strong>10</strong></span>
+        <span class="exam-rules">Bez ściągi · Bez podpowiedzi</span>
+        <span class="timer" id="timer">25:00</span>
+        <button type="button" class="btn ghost" id="finish-exam">Zakończ egzamin</button>
+      </div>
+
+      <article class="task-card" id="task-card">
+        <div class="task-meta">
+          <span class="badge" id="task-topic">JOIN</span>
+          <span class="badge points">2 pkt</span>
+          <span class="badge oracle-tag" id="oracle-badge">Oracle SQL</span>
+        </div>
+        <h2 class="task-prompt" id="task-prompt">Ładowanie zadania…</h2>
+        <p class="task-hint hidden" id="task-hint"></p>
+      </article>
+
+      <section class="learn-panel hidden" id="learn-panel" aria-live="polite">
+        <div class="learn-header">
+          <span class="learn-badge">Tryb nauka</span>
+          <span class="learn-progress-text">Krok <strong id="learn-step-num">1</strong> / <strong id="learn-step-total">1</strong></span>
+        </div>
+        <div class="learn-progress-bar" role="progressbar" aria-valuemin="0" aria-valuemax="100" id="learn-progress-bar">
+          <div class="learn-progress-fill" id="learn-progress-fill"></div>
+        </div>
+        <p class="learn-lead" id="learn-lead"></p>
+        <p class="learn-instruction" id="learn-instruction"></p>
+        <pre class="learn-code-target hidden" id="learn-code-target"></pre>
+      </section>
+
+      <div class="editor-wrap">
+        <label for="sql-editor">Zapytanie Oracle SQL</label>
+        <textarea id="sql-editor" spellcheck="false" placeholder="SELECT u.imie, u.nazwisko&#10;FROM uczen u&#10;INNER JOIN miasto m ON m.id_miasto = u.id_miasto;&#10;"></textarea>
+      </div>
+
+      <div class="actions">
+        <button type="button" class="btn secondary practice-only learn-hide" id="btn-hint">Podpowiedź</button>
+        <button type="button" class="btn secondary learn-hide" id="btn-check">Sprawdź zapytanie</button>
+        <button type="button" class="btn primary learn-only hidden" id="btn-learn-step">Dalej</button>
+        <button type="button" class="btn primary learn-hide" id="btn-next">Następne zadanie</button>
+        <button type="button" class="btn ghost practice-only learn-hide" id="btn-solution">Pokaż wzorcowe rozwiązanie</button>
+      </div>
+
+      <div class="feedback hidden" id="feedback"></div>
+
+      <details class="solution-box hidden practice-only" id="solution-box">
+        <summary>Wzorcowe rozwiązanie (Oracle)</summary>
+        <pre><code id="solution-code"></code></pre>
+        <p class="solution-note" id="solution-note"></p>
+      </details>
+
+      <section class="cheatsheet practice-only" id="cheatsheet">
+        <h3>Ściąga Oracle (tylko tryb ćwiczeń)</h3>
+        <div class="cheat-grid">
+          <code>ROUND(AVG(o.wartosc), 2)</code>
+          <code>FETCH FIRST 1 ROW ONLY</code>
+          <code>NVL(średnia, 0)</code>
+          <code>WHERE ROWNUM &lt;= 5</code>
+          <code>|| łączenie tekstu</code>
+          <code>OFFSET n ROWS FETCH NEXT m ROWS ONLY</code>
+        </div>
+      </section>
+    </main>
+  </div>
+
+  <dialog id="exam-result">
+    <h2>Wynik egzaminu</h2>
+    <p id="exam-score-text"></p>
+    <ul id="exam-breakdown"></ul>
+    <button type="button" class="btn primary" id="close-exam-result">OK</button>
+  </dialog>
+
+  <dialog id="er-lightbox" class="er-lightbox">
+    <header class="er-lightbox-header">
+      <h2>Diagram bazy danych (ER)</h2>
+      <p class="er-lightbox-sub">Miasto · Nauczyciel · Uczeń · Przedmiot · Ocena — relacje i klucze</p>
+      <button type="button" class="btn ghost er-lightbox-close" id="close-er-lightbox" aria-label="Zamknij">✕ Zamknij</button>
+    </header>
+    <div class="er-lightbox-body" id="er-lightbox-body"></div>
+    <p class="er-lightbox-footer">Kliknij poza diagram lub naciśnij Escape, aby zamknąć</p>
+  </dialog>
+
+  <script src="tasks.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>

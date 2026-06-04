@@ -1,0 +1,89 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 720 520" role="img" aria-label="Diagram ER bazy szkolnej Oracle">
+  <defs>
+    <marker id="arrow" markerWidth="8" markerHeight="8" refX="7" refY="4" orient="auto">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#8b9cb3"/>
+    </marker>
+    <style>
+      .table-box { fill: #1a2332; stroke: #3d9cf5; stroke-width: 2; }
+      .table-title { fill: #3d9cf5; font: 700 13px Outfit, system-ui, sans-serif; }
+      .col { fill: #e8edf4; font: 11px JetBrains Mono, monospace; }
+      .pk { fill: #ff9500; }
+      .fk { fill: #3ecf8e; }
+      .rel { stroke: #8b9cb3; stroke-width: 1.5; fill: none; marker-end: url(#arrow); }
+      .rel-label { fill: #8b9cb3; font: 10px Outfit, sans-serif; }
+      .bg { fill: #0f1419; }
+      .caption { fill: #8b9cb3; font: 11px Outfit, sans-serif; }
+    </style>
+  </defs>
+  <rect class="bg" width="720" height="520" rx="12"/>
+
+  <!-- MIASTO -->
+  <g transform="translate(40, 40)">
+    <rect class="table-box" width="160" height="72" rx="6"/>
+    <text class="table-title" x="12" y="22">MIASTO</text>
+    <text class="col pk" x="12" y="42">PK id_miasto</text>
+    <text class="col" x="12" y="58">nazwa</text>
+  </g>
+
+  <!-- NAUCZYCIEL -->
+  <g transform="translate(40, 200)">
+    <rect class="table-box" width="180" height="88" rx="6"/>
+    <text class="table-title" x="12" y="22">NAUCZYCIEL</text>
+    <text class="col pk" x="12" y="42">PK id_nauczyciel</text>
+    <text class="col" x="12" y="58">imie, nazwisko</text>
+    <text class="col" x="12" y="74">pensja</text>
+  </g>
+
+  <!-- UCZEN -->
+  <g transform="translate(280, 120)">
+    <rect class="table-box" width="200" height="104" rx="6"/>
+    <text class="table-title" x="12" y="22">UCZEN</text>
+    <text class="col pk" x="12" y="42">PK id_uczen</text>
+    <text class="col" x="12" y="58">imie, nazwisko</text>
+    <text class="col fk" x="12" y="74">FK id_miasto í MIASTO</text>
+    <text class="col fk" x="12" y="90">FK id_wychowawca í NAUCZYCIEL</text>
+  </g>
+
+  <!-- PRZEDMIOT -->
+  <g transform="translate(520, 40)">
+    <rect class="table-box" width="160" height="72" rx="6"/>
+    <text class="table-title" x="12" y="22">PRZEDMIOT</text>
+    <text class="col pk" x="12" y="42">PK id_przedmiot</text>
+    <text class="col" x="12" y="58">nazwa</text>
+  </g>
+
+  <!-- OCENA -->
+  <g transform="translate(400, 280)">
+    <rect class="table-box" width="220" height="120" rx="6"/>
+    <text class="table-title" x="12" y="22">OCENA</text>
+    <text class="col pk" x="12" y="42">PK id_ocena</text>
+    <text class="col" x="12" y="58">wartosc (16)</text>
+    <text class="col fk" x="12" y="74">FK id_uczen í UCZEN</text>
+    <text class="col fk" x="12" y="90">FK id_przedmiot í PRZEDMIOT</text>
+    <text class="col fk" x="12" y="106">FK id_nauczyciel í NAUCZYCIEL</text>
+  </g>
+
+  <!-- Relacje -->
+  <path class="rel" d="M200 76 L280 150"/>
+  <text class="rel-label" x="210" y="108">1  N</text>
+
+  <path class="rel" d="M130 200 L280 195"/>
+  <text class="rel-label" x="175" y="188">wychowawca 1  N</text>
+
+  <path class="rel" d="M380 224 L440 280"/>
+  <text class="rel-label" x="395" y="255">1  N</text>
+
+  <path class="rel" d="M600 112 L520 300"/>
+  <text class="rel-label" x="575" y="200">1  N</text>
+
+  <path class="rel" d="M220 288 L400 320"/>
+  <text class="rel-label" x="290" y="295">wystawia 1  N</text>
+
+  <text class="caption" x="40" y="470">Legenda: </text>
+  <rect x="100" y="458" width="12" height="12" fill="#ff9500" rx="2"/>
+  <text class="caption" x="118" y="468">PK</text>
+  <rect x="150" y="458" width="12" height="12" fill="#3ecf8e" rx="2"/>
+  <text class="caption" x="168" y="468">FK</text>
+  <text class="caption" x="220" y="468">Oracle SQL  kolokwium szkolne</text>
+  <text class="caption" x="40" y="495">AaDcuch typowy: MIASTO í UCZEN í OCENA ê PRZEDMIOT, NAUCZYCIEL</text>
+</svg>
